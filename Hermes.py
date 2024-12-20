@@ -3,7 +3,6 @@ import wave
 import pyaudio
 import speech_recognition as sr
 import assist
-import tts
 import graphic
 
 # Configurations
@@ -93,9 +92,9 @@ def main():
         if wake_word_detected():  # Detect the wake word
             print(f"Wake word '{WAKE_WORD}' detected!")
             
-            # Handle the command
-            if not handle_command():  # If 'thank you' is detected, stop the loop
-                break  # Exit the loop and stop the assistant
+            # Handle the command and return to listening after each response
+            handle_command()  # Once the command is handled, continue listening
+
 
 if __name__ == "__main__":
     main()
