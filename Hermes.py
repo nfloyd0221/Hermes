@@ -2,11 +2,12 @@ import os
 import wave
 import pyaudio
 import speech_recognition as sr
-import assistant_api
-import tts_api
+import assist
+import tts
+import graphic  # Import the graphic module
 
 # Configurations
-WAKE_WORD = "Jarvis"  # Change as needed
+WAKE_WORD = "jarvis"  # Wake word to activate the assistant
 
 def play_audio(filename):
     """Play an audio file using PyAudio."""
@@ -29,10 +30,6 @@ def play_audio(filename):
     stream.stop_stream()
     stream.close()
     pa.terminate()
-
-def dynamic_graphic():
-    """Placeholder for dynamic graphic while listening."""
-    print("Listening... (dynamic graphic here)")  # Replace with your code
 
 def record_audio():
     """Record audio from the user."""
@@ -78,26 +75,27 @@ def wake_word_detected():
             return WAKE_WORD in transcript
         except sr.UnknownValueError:
             print("Could not understand audio.")
-        except sr.WaitTimeoutError:
-            print("Listening timed out.")
     return False
 
 def main():
     while True:
         if wake_word_detected():
             print(f"Wake word '{WAKE_WORD}' detected!")
-            thread_id = assistant_api.start_new_thread()  # Start a new thread
+            
             while True:
-                dynamic_graphic()  # Show dynamic graphic
+                graphic.start_graphic()  # Start dynamic graphics
                 audio_file = record_audio()  # Record user command
-                user_text = assistant_api.send_to_assistant(audio_file, thread_id)  # Send to Assistant API
+                graphic.stop_graphic()  # Stop graphics after recording
                 
+                response = assist.send_to_assistant(audio_file)  # Send to Assistant API
+                print(response)
+                speech = response.split('#')[0]
+                done = assist.TTS(speech)
+
                 if "thank you" in user_text.lower():
                     print("User said 'thank you'. Ending session.")
                     break
 
-                audio_response = tts_api.generate_tts(user_text)  # Generate TTS response
-                play_audio(audio_response)  # Play TTS response
 
 if __name__ == "__main__":
     main()
