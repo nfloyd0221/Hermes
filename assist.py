@@ -4,8 +4,9 @@ from pygame import mixer
 import speech_recognition as sr
 import openai
 from openai import OpenAI
+from dotenv import load_dotenv
 
-
+load_dotenv()
 api_key_temp = os.getenv("OPENAI_API_KEY")
 
 # OpenAI API Configuration
