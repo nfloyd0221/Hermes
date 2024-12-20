@@ -4,7 +4,7 @@ import pyaudio
 import speech_recognition as sr
 import assist
 import tts
-import graphic  # Import the graphic module
+import graphic
 
 # Configurations
 WAKE_WORD = "jarvis"  # Wake word to activate the assistant
@@ -77,25 +77,25 @@ def wake_word_detected():
             print("Could not understand audio.")
     return False
 
+def handle_command():
+    """Handle a command after the wake word is detected."""
+    graphic.start_graphic()  # Start dynamic graphics
+    audio_file = record_audio()  # Record user command
+    graphic.stop_graphic()  # Stop graphics after recording
+
+    response = assist.send_to_assistant(audio_file)  # Send to Assistant API
+    print(response)
+    speech = response.split('#')[0]
+    done = assist.TTS(speech)  # Convert text to speech and play it
+
 def main():
     while True:
-        if wake_word_detected():
+        if wake_word_detected():  # Detect the wake word
             print(f"Wake word '{WAKE_WORD}' detected!")
             
-            while True:
-                graphic.start_graphic()  # Start dynamic graphics
-                audio_file = record_audio()  # Record user command
-                graphic.stop_graphic()  # Stop graphics after recording
-                
-                response = assist.send_to_assistant(audio_file)  # Send to Assistant API
-                print(response)
-                speech = response.split('#')[0]
-                done = assist.TTS(speech)
-
-                if "thank you" in user_text.lower():
-                    print("User said 'thank you'. Ending session.")
-                    break
-
+            # Handle the command
+            if not handle_command():  # If 'thank you' is detected, stop the loop
+                break  # Exit the loop and stop the assistant
 
 if __name__ == "__main__":
     main()

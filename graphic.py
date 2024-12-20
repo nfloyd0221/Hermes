@@ -72,6 +72,9 @@ def dynamic_graphic():
         update_and_draw_particles()
         pygame.display.flip()
         clock.tick(60)
+    else:
+            screen.fill((0, 0, 0))  # Black screen, or use (0, 0, 0, 0) for transparency
+            pygame.display.flip() 
 
 def start_graphic():
     global graphic_active
