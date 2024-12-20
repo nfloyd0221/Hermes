@@ -7,7 +7,7 @@ import time
 api_key_temp = os.environ.get('OPENAI_API_KEY')
 
 # OpenAI API Configuration
-client = OpenAI(default_headers={"OpenAI-Beta": "assistants=v2"}, api_key = 'api_key_temp')
+client = OpenAI(default_headers={"OpenAI-Beta": "assistants=v2"}, api_key = "api_key_temp")
 mixer.init()
 
 assistant_id = "asst_e1lRtkunXL6VOgsuiLRERBhK"
