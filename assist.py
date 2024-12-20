@@ -5,7 +5,7 @@ from pygame import mixer
 import time
 
 api_key_temp = os.environ['OPENAI_API_KEY']
-print(api_key_temp)
+
 # OpenAI API Configuration
 client = OpenAI(default_headers={"OpenAI-Beta": "assistants=v2"}, api_key = api_key_temp)
 mixer.init()
