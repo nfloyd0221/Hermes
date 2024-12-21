@@ -3,6 +3,7 @@ import random
 import math
 import threading
 import sys
+import os
 
 # Initialize Pygame
 pygame.init()
@@ -29,6 +30,13 @@ pulse_offset = 0
 
 # Graphic state
 graphic_active = False
+
+# Function to set the window always on top using wmctrl
+def set_window_always_on_top():
+    # Get the window ID from Pygame
+    window_id = pygame.display.get_wm_info()['window']
+    # Use wmctrl to set the window to always be on top
+    os.system(f'wmctrl -i -r {window_id} -b add,above')
 
 def create_particles():
     for _ in range(NUM_PARTICLES):
@@ -63,6 +71,9 @@ def dynamic_graphic():
     create_particles()
     clock = pygame.time.Clock()
 
+    # Set the window always on top as soon as it starts
+    set_window_always_on_top()
+
     while graphic_active:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -73,8 +84,8 @@ def dynamic_graphic():
         pygame.display.flip()
         clock.tick(60)
     else:
-            screen.fill((0, 0, 0))  # Black screen, or use (0, 0, 0, 0) for transparency
-            pygame.display.flip() 
+        screen.fill((0, 0, 0))  # Black screen, or use (0, 0, 0, 0) for transparency
+        pygame.display.flip()
 
 def start_graphic():
     global graphic_active
