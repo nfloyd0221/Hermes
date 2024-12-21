@@ -7,11 +7,11 @@ import speech_recognition as sr
 import assist
 import graphic
 
-# Configurations
-WAKE_WORD = "jarvis"  # Wake word to activate the assistant
+
+WAKE_WORD = "jarvis"  
 
 def play_audio(filename):
-    """Play an audio file using PyAudio."""
+    """Play an audio file"""
     chunk = 1024
     wf = wave.open(filename, 'rb')
     pa = pyaudio.PyAudio()
@@ -65,8 +65,8 @@ def record_audio():
 
     return filename
 
-def wake_word_detected():
-    """Listen for the wake word using a microphone."""
+def wake_word_detection():
+    """Listen for the wake word"""
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening for wake word...")
@@ -91,11 +91,11 @@ def handle_command():
 
 def main():
     while True:
-        if wake_word_detected():  # Detect the wake word
+        if wake_word_detection():  # Detect the wake word
             print(f"Wake word '{WAKE_WORD}' detected!")
             
-            # Handle the command and return to listening after each response
-            handle_command()  # Once the command is handled, continue listening
+            # Handle the command then return to listening after each response
+            handle_command()
 
 
 if __name__ == "__main__":
