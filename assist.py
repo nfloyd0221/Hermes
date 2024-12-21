@@ -20,12 +20,12 @@ assistant = client.beta.assistants.retrieve(assistant_id)
 thread = client.beta.threads.retrieve(thread_id)
 
 def transcribe_audio_google(audio_file):
-    """Transcribe audio to text using Google Speech-to-Text."""
+    """Transcribe audio"""
     recognizer = sr.Recognizer()
     with sr.AudioFile(audio_file) as source:
         audio = recognizer.record(source)  # Read the entire audio file
     try:
-        # Using Google Speech-to-Text to transcribe the audio
+        # Use google SST
         transcript = recognizer.recognize_google(audio)
         print(f"User: {transcript}")
         return transcript
@@ -37,7 +37,7 @@ def transcribe_audio_google(audio_file):
         return ""
 
 def send_to_assistant(audio_file):
-    """Send user input to OpenAI Assistants API with thread handling."""
+    """Send user input to OpenAI Assistants API in existing thread."""
     transcription = transcribe_audio_google(audio_file)
 
     if not transcription:
