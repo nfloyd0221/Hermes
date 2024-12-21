@@ -3,7 +3,7 @@ from gpiozero import MotionSensor
 from pynput.keyboard import Controller
 
 # Initialize the PIR sensor and keyboard controller
-pir = MotionSensor(2)  # Change to your GPIO pin
+pir = MotionSensor(4)  # Change to your GPIO pin
 keyboard = Controller()
 
 # Function to simulate keystroke
