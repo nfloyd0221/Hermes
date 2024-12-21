@@ -31,7 +31,7 @@ pulse_offset = 0
 # Graphic state
 graphic_active = False
 
-# Function to set the window always on top using wmctrl
+# try to set the window always on top
 def set_window_always_on_top():
     # Get the window ID from Pygame
     window_id = pygame.display.get_wm_info()['window']
@@ -71,7 +71,7 @@ def dynamic_graphic():
     create_particles()
     clock = pygame.time.Clock()
 
-    # Set the window always on top as soon as it starts
+    # Set the window always on top as soon as it starts (maybe)
     set_window_always_on_top()
 
     while graphic_active:
