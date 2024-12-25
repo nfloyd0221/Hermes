@@ -80,12 +80,11 @@ import re
 
 import re
 
+import re
+
 def TTS(text):
-    # Remove occurrences of [number:0†source] or similar with a biblical cross
-    cleaned_text = re.sub(r'\[\d+:0†source\]', '', text).strip()
-    
-    # Handle possible variations of the cross (†), in case it's represented differently
-    cleaned_text = re.sub(r'\[\d+:0\u2020source\]', '', cleaned_text).strip()  # Unicode for † is \u2020
+    # Remove any occurrences of text inside square brackets (including the brackets)
+    cleaned_text = re.sub(r'\[.*?\]', '', text).strip()
 
     # Ensure the text isn't empty before proceeding with TTS
     if not cleaned_text:
