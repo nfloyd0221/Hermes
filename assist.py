@@ -76,7 +76,10 @@ def play_sound(file_path):
     mixer.music.play()
 
 def TTS(text):
-    speech_file_path = generate_tts(text, "speech.mp3")
+    # Remove any [number] patterns from the text
+    cleaned_text = re.sub(r'\[\d+\]', '', text).strip()
+    
+    speech_file_path = generate_tts(cleaned_text, "speech.mp3")
     play_sound(speech_file_path)
     while mixer.music.get_busy():
         time.sleep(1)
