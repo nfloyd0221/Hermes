@@ -86,7 +86,14 @@ def handle_command():
 
     response = assist.send_to_assistant(audio_file)  # Send to Assistant API
     print(response)
-    speech = response.split('#')[0]
+    
+    # Adjust the way we handle the response to avoid any unintended split
+    # We check for any source tag and clean it before passing it to TTS
+    speech = response.split('#')[0].strip()  # You may need to refine this if response format varies
+
+    if not speech:  # Handle the case where the response is empty
+        speech = "I'm sorry, I didn't catch that."
+
     done = assist.TTS(speech)  # Convert text to speech and play it
 
 def main():
