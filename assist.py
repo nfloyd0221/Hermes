@@ -78,10 +78,15 @@ def play_sound(file_path):
 
 import re
 
+import re
+
 def TTS(text):
-    # Remove any occurrences of [number:0†source] (where † is the biblical cross symbol)
+    # Remove occurrences of [number:0†source] or similar with a biblical cross
     cleaned_text = re.sub(r'\[\d+:0†source\]', '', text).strip()
     
+    # Handle possible variations of the cross (†), in case it's represented differently
+    cleaned_text = re.sub(r'\[\d+:0\u2020source\]', '', cleaned_text).strip()  # Unicode for † is \u2020
+
     # Ensure the text isn't empty before proceeding with TTS
     if not cleaned_text:
         cleaned_text = "Sorry, I couldn't understand that."
