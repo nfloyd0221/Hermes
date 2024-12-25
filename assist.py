@@ -76,9 +76,11 @@ def play_sound(file_path):
     mixer.music.load(file_path)
     mixer.music.play()
 
+import re
+
 def TTS(text):
-    # Remove any [number] patterns from the text
-    cleaned_text = re.sub(r'\[\d+\]', '', text).strip()
+    # Remove any occurrences of [number:0†source] (where † is the biblical cross symbol)
+    cleaned_text = re.sub(r'\[\d+:0†source\]', '', text).strip()
     
     # Ensure the text isn't empty before proceeding with TTS
     if not cleaned_text:
