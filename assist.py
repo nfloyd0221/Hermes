@@ -1,5 +1,6 @@
 import os
 import time
+import re
 from pygame import mixer
 import speech_recognition as sr
 import openai
@@ -79,6 +80,10 @@ def TTS(text):
     # Remove any [number] patterns from the text
     cleaned_text = re.sub(r'\[\d+\]', '', text).strip()
     
+    # Ensure the text isn't empty before proceeding with TTS
+    if not cleaned_text:
+        cleaned_text = "Sorry, I couldn't understand that."
+
     speech_file_path = generate_tts(cleaned_text, "speech.mp3")
     play_sound(speech_file_path)
     while mixer.music.get_busy():
